@@ -45,7 +45,6 @@ while line != "":
 	word = wre.search(line[2]).group()
 	sub = line[0] + '_' + word + '_' + line[1]
 	frame = []
-	print line
 	if ('K' in line) or ('S' in line) or ('k' in line) or ('s' in line):
 		frame.append('K')
 	if ('L' in line) or ('l' in line):
@@ -55,7 +54,7 @@ while line != "":
 	else: 
 		logs[sub] = [frame]
 	line = log.readline()
-		
+
 #iterates through the .cons files generating plot images.
 for word in logs.keys():
 
@@ -72,6 +71,9 @@ for word in logs.keys():
 	miny = np.min(fil[1])
 	maxy = np.max(fil[1])
 
+	# number of contours tracked in the .cons file
+	cons = len(fil)/2
+
 	for i in range(0,cons):
 		minx = min(np.min(fil[i*2]),minx)
 		maxx = max(np.max(fil[i*2]),maxx)
@@ -82,9 +84,6 @@ for word in logs.keys():
 
 	# generates figure window 9x5
 	plt.figure(figsize=(9, 5))
-
-	# number of contours tracked in the .cons file
-	cons = len(fil)/2
 
 	# Number of contours to plot will be based on whether or not all
 	# of the frames were Edgetraked. (Some of the frames that were not 
